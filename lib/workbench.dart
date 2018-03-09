@@ -1,11 +1,5 @@
-import 'dart:async';
-
 void main() {
   print('started...');
-
-//  var counterStream = timedCounter(const Duration(seconds: 1), 15);
-//  // After 5 seconds, add a listener.
-//  new Timer(const Duration(seconds: 5), () => counterStream.listen(print));
 
   Tran tran = new Tran();
   tran.buyUnit = 125;
@@ -26,42 +20,30 @@ void main() {
   tran.computeProfit();
   print(tran);
 
-  print('Brkerage        : ' + (2 * tran.brokeragePerUnit * tran.sellUnit).toStringAsFixed(2));
+  print('---------------------------------------------------------');
+
+  print('Buy Unit        : ' + tran.buyUnit.toString());
+  print('Buy Rate        : ' + tran.buyRate.toString());
+  print('Buy Amount      : ' + tran.buyAmount.toString());
+  print('Sell Unit       : ' + tran.sellUnit.toString());
+  print('sell Rate       : ' + tran.sellRate.toString());
+  print('Sell Amount     : ' + tran.sellAmount.toString());
+  print('Sales Amount    : ' + tran.salesAmount.toString());
+
+  print('Brokerage       : ' + tran.brokerageAmount.toStringAsFixed(2));
   print('STT             : ' + tran.sttAmount.toStringAsFixed(2));
   print('ETT             : ' + tran.ettAmount.toStringAsFixed(2));
   print('GST             : ' + tran.gstAmount.toStringAsFixed(2));
   print('SEBI            : ' + tran.sebi.toStringAsFixed(2));
   print('Stamp Duty      : ' + tran.stampDuty.toStringAsFixed(2));
   print('Total Brokerage : ' + tran.brokerage.toStringAsFixed(2));
-  print('Profit          : ' + (tran.sellAmount - tran.buyAmount).toStringAsFixed(2));
+  print('Profit          : ' +
+      (tran.sellAmount - tran.buyAmount).toStringAsFixed(2));
   print('Net Profit      : ' + tran.profit.toStringAsFixed(2));
 
+  print('---------------------------------------------------------');
+
   print('finished...');
-}
-
-class ProfitCalculator {
-
-  List<Tran> items;
-
-  double totalProfitAmount;
-
-  ProfitCalculator(this.items);
-
-  void computeTotalProfitAmount() {
-    totalProfitAmount = 0.0;
-    for(Tran item in items) {
-      totalProfitAmount += item.profit;
-    }
-  }
-
-  String toString() {
-    StringBuffer sb = new StringBuffer();
-    sb.write('ProfitCalculator(');
-    sb.write('totalProfitAmount: $totalProfitAmount');
-    sb.write(')');
-    return sb.toString();
-  }
-
 }
 
 class Tran {
@@ -113,6 +95,9 @@ class Tran {
     //String val = brokeragePerUnit.toStringAsFixed(2);
     //brokeragePerUnit = double.parse(val);
     //print(brokeragePerUnit);
+    if (brokerageAmount < 20.0) {
+      brokerageAmount = 20.0;
+    }
   }
 
   void computeSTTAmount() {
@@ -142,7 +127,7 @@ class Tran {
   }
 
   void computeGSTAmount() {
-    gstAmount = (brokeragePerUnit * 2 * sellUnit) + sttAmount + ettAmount;
+    gstAmount = brokerageAmount + ettAmount;
     //print(gstAmount);
     gstAmount = (gstAmount * 18) / 100;
     //print(gstAmount);
@@ -157,29 +142,27 @@ class Tran {
   }
 
   void computeSEBI() {
-    sebi = ( (sellAmount * 0.0001) / 100 ) + ( (buyAmount * 0.0001) / 100 );
+    sebi = ((sellAmount * 0.00015) / 100) + ((buyAmount * 0.00015) / 100);
     //String val = sebi.toStringAsFixed(2);
     //sebi = double.parse(val);
   }
 
   void computeStampDuty() {
-    double val = (sellAmount / 5000.0).ceil() * 5000.0;
-    stampDuty = (val * 0.0002) / 100;
-    val = (buyAmount / 5000.0).ceil() * 5000.0;
-    val = (val * 0.0002) / 100;
-    stampDuty = stampDuty + val;
+    stampDuty = (salesAmount / 5000.0).ceil() * 5000.0;
+    stampDuty = (stampDuty * 0.002) / 100;
     //print(stampDuty);
   }
 
   void computeBrokerage() {
-    brokerage = (2 * brokeragePerUnit * sellUnit) + sttAmount + ettAmount + gstAmount + sebi + stampDuty;
+    brokerage =
+        brokerageAmount + sttAmount + ettAmount + gstAmount + sebi + stampDuty;
   }
 
   void computeProfit() {
     profit = sellAmount - buyAmount;
-    print(profit);
+    //print(profit);
     profit -= brokerage;
-    print(profit);
+    //print(profit);
   }
 
   void computeProfitX() {
@@ -207,7 +190,7 @@ class Tran {
   }
 
   void computeSalesAmount() {
-    if(buyAmount != null && sellAmount != null) {
+    if (buyAmount != null && sellAmount != null) {
       salesAmount = buyAmount + sellAmount;
     }
   }
@@ -255,28 +238,4 @@ class Tran {
     sb.write(')');
     return sb.toString();
   }
-
-}
-
-Stream<int> timedCounter(Duration interval, [int maxCount]) {
-  StreamController<int> controller = new StreamController<int>();
-  int counter = 0;
-  void tick(Timer timer) {
-    counter++;
-    controller.add(counter); // Ask stream to send counter values as event.
-    if (maxCount != null && counter >= maxCount) {
-      timer.cancel();
-      controller.close(); // Ask stream to shut down and tell listeners.
-    }
-  }
-
-  new Timer.periodic(interval, tick); // BAD: Starts before it has subscribers.
-  return controller.stream;
-}
-
-class Person {
-  String _id;
-  String _name;
-
-  Person(this._id, this._name);
 }
