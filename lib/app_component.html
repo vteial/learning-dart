@@ -1,0 +1,68 @@
+
+<div id="wrap">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar"
+                    (click)="isNavCollapsed = !isNavCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">{{appService.appName}}</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <!--
+                <li (click)="closeMenu()">
+                    <a [routerLink]="['Profile']">Profile</a>
+                </li>
+                -->
+                <li (click)="closeMenu()" [class.active]="viewName == 'Sign In'">
+                    <a [routerLink]="['SignIn']">Sign In</a>
+                </li>
+                <li (click)="closeMenu()" [class.active]="viewName == 'Sign Out'">
+                    <a [routerLink]="['SignOut']">Sign Out</a>
+                </li>
+                <li (click)="closeMenu()" [class.active]="viewName == 'Sign Up'">
+                    <a [routerLink]="['SignUp']">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+        <div class="bg-white">
+            <br/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>{{viewName}}</strong>
+                    </div>
+                    <div class="col-md-8">
+                        <!--
+                        <span class="pull-right" ng-show="(session)">
+                            <strong>{{session.username}}</strong>
+                            &nbsp;/&nbsp;
+                            <strong>{{lodash.capitalize(session.role)}}</strong>
+                        </span>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <br/>
+        <br/>
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+
+<hr class="hr-medium"/>
+
+<footer class="footer ">
+    <div class="container">
+        <p class="text-muted">{{appService.appName}}</p>
+    </div>
+</footer>
