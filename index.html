@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head>
+    <script>
+        // WARNING: DO NOT set the <base href> like this in production!
+        // Details: https://webdev.dartlang.org/angular/guide/router
+        (function () {
+            // App being served out of web folder (like WebStorm does)?
+            var match = document.location.pathname.match(/^\/[-\w]+\/web\//);
+            var href = match ? match[0] : '/';
+            document.write('<base href="' + href + '" />');
+        }());
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Dart</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/paper/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="text/javascript" src="packages/sweetalert_angular_dart/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <!--
+    <script>
+        var config = {
+            apiKey: "AIzaSyCC2_wXSBbOE8BdEezcZRNjctf9uGeNk8w",
+            authDomain: "watchyourchits.firebaseapp.com",
+            databaseURL: "https://watchyourchits.firebaseio.com",
+            projectId: "watchyourchits",
+            storageBucket: "watchyourchits.appspot.com",
+            messagingSenderId: "137681108291"
+        };
+        firebase.initializeApp(config);
+    </script>
+    -->
+    <script defer="" src="main.dart.js"></script>
+    
+</head>
+
+<body>
+
+    <app>Loading...</app>
+
+
+
+</body></html>

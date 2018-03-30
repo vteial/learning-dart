@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-4">&nbsp;</div>
+    <div class="col-md-4">
+        <div class="panel panel-primary" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    Sign Up {{message}}
+                </div>
+            </div>
+            <div class="panel-body" >
+                <form autocomplete=”off” novalidate="true" #myForm="ngForm">
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(userId)">
+                        <label for="userId">User / Email Id <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="userId" class="form-control" placeholder="User / Email Id" aria-describedby="userIdHelpBlock"
+                                   type="text" autofocus="true" required
+                                   ngControl="userId" [(ngModel)]="model.userId" #userId="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="userId.dirty && userId.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="userId.dirty && !userId.valid"></span>
+                        <div id="userIdHelpBlock" class="help-inline" *ngIf="hasErrors(userId)">
+                            <span [hidden]="!userId.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(password)">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" class="form-control" placeholder="Password" aria-describedby="passwordHelpBlock"
+                                   type="password" required
+                                   ngControl="password" [(ngModel)]="model.password" #password="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="password.dirty && password.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="password.dirty && !password.valid"></span>
+                        <div id="passwordHelpBlock" class="help-inline" *ngIf="hasErrors(userId)">
+                            <span [hidden]="!password.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(confirmPassword)">
+                        <label for="confirmPassword">Password <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="confirmPassword" class="form-control" placeholder="Confirm Password" aria-describedby="confirmPasswordHelpBlock"
+                                   type="password" required
+                                   ngControl="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="confirmPassword.dirty && confirmPassword.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="confirmPassword.dirty && !confirmPassword.valid"></span>
+                        <div id="confirmPasswordHelpBlock" class="help-inline" *ngIf="hasErrors(confirmPassword)">
+                            <span [hidden]="!confirmPassword.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(name)">
+                        <label for="userId">Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                            <input id="name" class="form-control" placeholder="Name" aria-describedby="nameHelpBlock"
+                                   type="text" required
+                                   ngControl="name" [(ngModel)]="model.name" #name="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="name.dirty && name.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="name.dirty && !name.valid"></span>
+                        <div id="namedHelpBlock" class="help-inline" *ngIf="hasErrors(name)">
+                            <span [hidden]="!name.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(mobileNo)">
+                        <label for="mobileNo">Mobile No <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input id="mobileNo" class="form-control" placeholder="Mobile No" aria-describedby="mobileNoHelpBlock"
+                                   type="text" required
+                                   ngControl="mobileNo" [(ngModel)]="model.mobileNo" #mobileNo="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="mobileNo.dirty && mobileNo.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="mobileNo.dirty && !mobileNo.valid"></span>
+                        <div id="mobileNoHelpBlock" class="help-inline" *ngIf="hasErrors(mobileNo)">
+                            <span [hidden]="!mobileNo.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="pull-right "
+                            [ngClass]="formStateClasses(myForm)"
+                            [disabled]="!(myForm.form.dirty && myForm.form.valid)"
+                            (click)="doSignUp()">
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">&nbsp;</div>
+</div>

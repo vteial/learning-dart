@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-4">&nbsp;</div>
+    <div class="col-md-4">
+        <div class="panel panel-primary" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    Sign In {{message}}
+                </div>
+            </div>
+            <div class="panel-body" >
+                <form autocomplete=”off” novalidate="true" #myForm="ngForm">
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(userId)">
+                        <label for="userId">User Id <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="userId" class="form-control" placeholder="User Id" aria-describedby="userIdHelpBlock"
+                                   type="text" autofocus="true" required
+                                   ngControl="userId" [(ngModel)]="model.userId" #userId="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="userId.dirty && userId.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="userId.dirty && !userId.valid"></span>
+                        <div id="userIdHelpBlock" class="help-inline" *ngIf="hasErrors(userId)">
+                            <span [hidden]="!userId.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback " [ngClass]="controlStateClasses(password)">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" class="form-control" placeholder="Password" aria-describedby="passwordHelpBlock"
+                                   type="password" required
+                                   ngControl="password" [(ngModel)]="model.password" #password="ngForm">
+                        </div>
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                              *ngIf="password.dirty && password.valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                              *ngIf="password.dirty && !password.valid"></span>
+                        <div id="passwordHelpBlock" class="help-inline" *ngIf="hasErrors(userId)">
+                            <span [hidden]="!password.errors['required']">This is required</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="pull-right "
+                            [ngClass]="formStateClasses(myForm)"
+                            [disabled]="!(myForm.form.dirty && myForm.form.valid)"
+                            (click)="doSignIn()">
+                        <i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">&nbsp;</div>
+</div>
